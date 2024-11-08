@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "../styles/global.scss"
 import {Providers} from "@/app/components/providers";
 import Header from "@/app/components/Header";
 
