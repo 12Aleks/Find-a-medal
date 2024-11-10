@@ -1,16 +1,20 @@
 "use client"
-import {useState} from 'react';
+import {ReactNode, useState} from 'react';
 import {Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, NavbarContent, NavbarItem,  Button} from "@nextui-org/react";
 import Link from "next/link";
 
-const Header = () => {
+interface Props{
+    children: ReactNode;
+}
+
+const Header = ({children}: Props) => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     return (
         <Navbar
             isBordered
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={setIsMenuOpen}
-            className="bg-gray-500"
+            className="bg-slate-500"
         >
             <NavbarContent className="sm:hidden shadow-md" justify="start">
                 <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
@@ -50,14 +54,7 @@ const Header = () => {
             </NavbarContent>
 
             <NavbarContent justify="end">
-                <NavbarItem className="hidden lg:flex">
-                    <Link href="#" className="tracking-widest">Login</Link>
-                </NavbarItem>
-                <NavbarItem>
-                    <Button as={Link} color="default" href="#" variant="flat" className="text-white tracking-widest">
-                        Sign Up
-                    </Button>
-                </NavbarItem>
+                {children}
             </NavbarContent>
 
             <NavbarMenu>

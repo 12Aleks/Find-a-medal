@@ -1,0 +1,36 @@
+$color_primary: #455972;
+$color_first: #20354c;
+$color_second: #6c809b;
+$color_third: #95a9c5;
+$color_fourth:#c0d4f1;
+
+button{
+  &.primary_style{
+    background-color: $color_primary;
+    color: #fff;
+    transition: background-color .5s;
+    &:hover, &:focus{
+      background-color: $color_first;
+      transition: background-color .8s;
+    }
+  }
+  &.second_style{
+    background-color: $color_second;
+    color: #fff;
+    transition: background-color .5s;
+    &:hover, &:focus{
+      background-color: $color_primary;
+      transition: background-color .8s;
+    }
+  }
+  &.third_style {
+    background-color: $color_third;
+    color: #fff;
+    transition: background-color .5s;
+
+    &:hover, &:focus {
+      background-color: $color_second;
+      transition: background-color .8s;
+    }
+  }
+}

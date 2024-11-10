@@ -4,6 +4,7 @@ import "./globals.css";
 import "../styles/global.scss"
 import {Providers} from "@/app/components/providers";
 import Header from "@/app/components/Header";
+import SignInPanel from "@/app/components/SignInPanel";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -30,7 +31,9 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
-            <Header />
+            <Header>
+                <SignInPanel/>
+            </Header>
             {children}
         </Providers>
         </body>
