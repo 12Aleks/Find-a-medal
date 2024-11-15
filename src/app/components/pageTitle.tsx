@@ -8,10 +8,10 @@ interface Props {
 
 const PageTitle = (props: Props) => {
     return (
-        <div className="p-3 bg-gradient-to-b from-primary-400 bg-primary-400 flex justify-between">
-            <h1 className="text-white text-xl font-medium tracking-wider">{props.title}</h1>
+        <div className="p-3 ml-3 mr-3 mb-5 bg-white flex justify-between border-b-1 border-b-slate-700 ">
+            <h1 className="text-slate-700 text-xl font-medium tracking-wider">{props.title}</h1>
             {props.href!! &&
-                <Link className="text-white hover:text-gray-100 transition-colors"
+                <Link className="text-slate-700 hover:text-slate-800 transition-colors"
                       href={props.href}>{props.linkCaption}</Link>}
         </div>
     );

@@ -12,10 +12,16 @@ datasource db {
 
 model User {
   id        String   @id @default(uuid())
+  nikname   String
   firstName String
   lastName  String
   email     String
   avatarUrl String?
+  interests String?
+  skype     String?
+  facebook  String?
+  x         String?
+  youtube   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
