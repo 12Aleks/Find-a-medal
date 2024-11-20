@@ -26,7 +26,7 @@ const UserProfilePanel = ({user}: Props) => {
                 </DropdownTrigger>
                 <DropdownMenu aria-label="User Actions" variant="flat">
                     <DropdownItem>
-                        <Link href="/user/profile" className="w-100 text-slate-700">Profile</Link>
+                        <Link href="/user/profile" className="w-100 text-slate-700">User Control Panel</Link>
                     </DropdownItem>
                     <DropdownItem key="logout" color="danger">
                         <LogoutLink className="w-100 text-slate-700">Log Out</LogoutLink>

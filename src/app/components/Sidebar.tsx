@@ -40,7 +40,7 @@ const Sidebar = () => {
                                 key={item.title}
                             >
                                 <item.icon className="w-6 h-6"/>
-                                <Link className="text-base font-semibold" href={item.link}>{item.title}</Link>
+                                <Link className="w-full text-base font-semibold" href={item.link}>{item.title}</Link>
                             </div>
                         );
                     })

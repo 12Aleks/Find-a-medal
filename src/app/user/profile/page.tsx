@@ -5,6 +5,7 @@ import PageTitle from "@/app/components/pageTitle";
 import {Card} from "@mui/material";
 import SectionTitle from "@/app/user/profile/_components/sectionTitle";
 import Sidebar from "@/app/components/Sidebar";
+import {Avatar} from "@nextui-org/react";
 
 interface Props {
     title: string;
@@ -31,9 +32,7 @@ const ProfilePage = async () => {
             <Card className="p-3 m-3">
                 <SectionTitle title="Basic information"/>
                 <div>
-                    <p className="text-slate-800 font-semibol">Please note that this information may be viewable to
-                        other members. Be careful when including any personal details. Any fields marked with a * must
-                        be completed.</p>
+                    <Avatar src={dbUser?.avatarUrl ?? "/userProfile.png"} className="w-16 h-16"/>
                     <Attribute title="Nikname" value={`${dbUser?.firstName} ${dbUser?.lastName}`}/>
                     <span className="text-slate-800 text-xs">(If you add a nickname, your name will not render)</span>
                     <Attribute title="Name*" value={`${dbUser?.firstName} ${dbUser?.lastName}`}/>
