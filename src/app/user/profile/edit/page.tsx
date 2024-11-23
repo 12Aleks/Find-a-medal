@@ -1,7 +1,7 @@
 import Sidebar from "@/app/components/Sidebar";
 import PageTitle from "@/app/components/pageTitle";
 import {Card, Input} from "@mui/material";
-import SectionTitle from "@/app/user/profile/_components/sectionTitle";
+import SectionTitle from "@/app/user/profile/_components/SectionTitle";
 import {MailIcon} from "@nextui-org/shared-icons";
 import {Avatar, cn} from "@nextui-org/react";
 import {useFormContext} from "react-hook-form";

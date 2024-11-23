@@ -3,7 +3,7 @@ import {getUserById} from "@/lib/action/user";
 import {redirect} from "next/navigation";
 import PageTitle from "@/app/components/pageTitle";
 import {Card} from "@mui/material";
-import SectionTitle from "@/app/user/profile/_components/sectionTitle";
+import SectionTitle from "@/app/user/profile/_components/SectionTitle";
 import Sidebar from "@/app/components/Sidebar";
 import {Avatar} from "@nextui-org/react";
 
