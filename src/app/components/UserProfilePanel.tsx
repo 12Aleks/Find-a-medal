@@ -10,7 +10,7 @@ interface Props {
 }
 
 const UserProfilePanel = ({user}: Props) => {
-    console.log(user.avatarUrl)
+
     return (
         <Dropdown placement="bottom-start">
                 <DropdownTrigger>

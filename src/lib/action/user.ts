@@ -12,3 +12,14 @@ export async function getUserById(id: string): Promise<User | null> {
         }
     );
 }
+
+export async function updateAvatarUrl(avatarUrl: string, userId: string): Promise<User> {
+    return prisma.user.update({
+        where:{
+            id: userId,
+        },
+        data: {
+            avatarUrl: avatarUrl,
+        }
+    })
+}

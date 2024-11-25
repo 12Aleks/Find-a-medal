@@ -7,23 +7,25 @@ import FileInput from "@/app/components/fileUpload";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { uploadImageToS3 } from "@/lib/upload";
+import {updateAvatarUrl} from "@/lib/action/user";
+import {useRouter} from "next/navigation";
 
 interface IProps {
-    unitId?: string;
-    setBadgeImage: (badgeImage: File) => void;
+    userId: string;
+    // setBadgeImage: (badgeImage: File) => void;
 }
 
-const UploadAvatar = () => {
+const UploadAvatar = ({userId}: IProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [image, setImage] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const router = useRouter();
 
 
     useEffect(() => {
         if (image) {
             const objectUrl = URL.createObjectURL(image);
             setPreviewUrl(objectUrl);
-
 
             return () => URL.revokeObjectURL(objectUrl);
         }
@@ -43,6 +45,10 @@ const UploadAvatar = () => {
             const payload = { keyPrefix: "avatars" };
 
             const uploadedFiles = await uploadImageToS3(formData, payload);
+            if(uploadedFiles) {
+                await updateAvatarUrl(uploadedFiles[0].url, userId);
+                router.refresh()
+            }
             console.log("Uploaded Files:", uploadedFiles);
             onClose();
         } catch (error) {

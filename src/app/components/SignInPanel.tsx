@@ -1,5 +1,5 @@
 import React from 'react';
-import {getKindeServerSession, LoginLink, LogoutLink, RegisterLink} from "@kinde-oss/kinde-auth-nextjs/server";
+import {getKindeServerSession, LoginLink, RegisterLink} from "@kinde-oss/kinde-auth-nextjs/server";
 import {Button} from "@nextui-org/react";
 import UserProfilePanel from "@/app/components/UserProfilePanel";
 import prisma from "@/lib/prisma";
@@ -17,9 +17,6 @@ const SignInPanel = async () => {
 
     return (
         <div className="flex gap-3">
-            <Button>
-                <LogoutLink className="w-100 text-slate-700">Log Out</LogoutLink>
-            </Button>
             <Button className="second_style">
                 <LoginLink className="tracking-wider">Sign In</LoginLink>
             </Button>
