@@ -24,7 +24,7 @@ export async function GET() {
                 firstName: user.given_name ?? "",
                 lastName: user.family_name ?? "",
                 email: user.email ?? "",
-                nickname: "",
+                // nickName: "",
             },
         });
         return NextResponse.redirect("http://localhost:3000"); // Or use the correct URL for your app

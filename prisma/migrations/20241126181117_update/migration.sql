@@ -1,10 +1,11 @@
 -- CreateTable
 CREATE TABLE `User` (
     `id` VARCHAR(191) NOT NULL,
-    `nikname` VARCHAR(191) NOT NULL,
+    `nickName` VARCHAR(191) NULL,
     `firstName` VARCHAR(191) NOT NULL,
     `lastName` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
+    `phone` VARCHAR(191) NULL,
     `avatarUrl` VARCHAR(191) NULL,
     `interests` VARCHAR(191) NULL,
     `skype` VARCHAR(191) NULL,

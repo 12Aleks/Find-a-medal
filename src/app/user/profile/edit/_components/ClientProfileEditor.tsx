@@ -7,8 +7,9 @@ import UploadAvatar from "@/app/user/profile/_components/UploadAvatar";
 import SectionTitle from "@/app/user/profile/_components/SectionTitle";
 import {Avatar, cn} from "@nextui-org/react";
 import {AddUserFormSchema} from "@/lib/zod";
+import {editUser} from "@/lib/action/user";
 
-type AddUserInputType = z.infer<typeof AddUserFormSchema>;
+export type AddUserInputType = z.infer<typeof AddUserFormSchema>;
 
 const ClientProfileEditor = ({dbUser}: { dbUser: any }) => {
     const methods = useForm<AddUserInputType>({
@@ -26,7 +27,7 @@ const ClientProfileEditor = ({dbUser}: { dbUser: any }) => {
 
     const onSubmit: SubmitHandler<AddUserInputType> = async (data) => {
         console.log("Form submitted:", data);
-        // Add your form submission logic here
+        await editUser(dbUser.id, data);
     };
 
     console.log(dbUser)

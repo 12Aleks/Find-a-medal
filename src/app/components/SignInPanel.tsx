@@ -1,8 +1,9 @@
 import React from 'react';
-import {getKindeServerSession, LoginLink, RegisterLink} from "@kinde-oss/kinde-auth-nextjs/server";
+import {getKindeServerSession, LoginLink, RegisterLink, LogoutLink} from "@kinde-oss/kinde-auth-nextjs/server";
 import {Button} from "@nextui-org/react";
 import UserProfilePanel from "@/app/components/UserProfilePanel";
 import prisma from "@/lib/prisma";
+
 
 
 const SignInPanel = async () => {
@@ -12,6 +13,7 @@ const SignInPanel = async () => {
     if (await isAuthenticated()) {
         const user = await getUser();
         const dbUser = await prisma.user.findUnique({where: {id: user?.id}});
+        console.log(dbUser);
         return <>{dbUser!! && <UserProfilePanel user={dbUser}/>}</>;
     }
 
