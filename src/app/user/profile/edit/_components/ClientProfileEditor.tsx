@@ -8,6 +8,7 @@ import SectionTitle from "@/app/user/profile/_components/SectionTitle";
 import {Avatar, cn} from "@nextui-org/react";
 import {AddUserFormSchema} from "@/lib/zod";
 import {editUser} from "@/lib/action/user";
+import {Textarea} from "@nextui-org/input";
 
 export type AddUserInputType = z.infer<typeof AddUserFormSchema>;
 
@@ -22,6 +23,7 @@ const ClientProfileEditor = ({dbUser}: { dbUser: any }) => {
             skype: dbUser?.skype || "",
             x: dbUser?.x || "",
             facebook: dbUser?.facebook || "",
+            interests: dbUser?.interests || "",
         },
     });
 
@@ -57,7 +59,7 @@ const ClientProfileEditor = ({dbUser}: { dbUser: any }) => {
                         <Input
                             {...methods.register("nickName")}
                             type="text"
-                            placeholder="Enter your nickname"
+                            placeholder="Enter your display name"
                         />
                         <div className="flex w-full flex-wrap md:flex-nowrap gap-4 pt-3 pb-3">
                             <Input
@@ -83,7 +85,7 @@ const ClientProfileEditor = ({dbUser}: { dbUser: any }) => {
                                 placeholder="Enter your phone number"
                             />
                         </div>
-                        <div className="flex w-full flex-wrap md:flex-nowrap gap-4 pt-4 pb-3">
+                        <div className="flex w-full flex-wrap md:flex-nowrap gap-4 pt-4">
                             <Input
                                 {...methods.register("facebook")}
                                 type="text"
@@ -105,15 +107,21 @@ const ClientProfileEditor = ({dbUser}: { dbUser: any }) => {
                                 placeholder="Enter your skype"
                             />
                         </div>
-                            <Button type="submit" className="btn  bg-slate-700 hover:bg-slate-800 transition-background text-white mt-3">
-                                Save Changes
-                            </Button>
+                        <Textarea
+                            placeholder="Please enter your interests"
+                            {...methods.register("interests")}
+                            className="w-full mt-6"
+                        />
+                        <Button type="submit"
+                                className="btn  bg-slate-700 hover:bg-slate-800 transition-background text-white mt-5">
+                            Save Changes
+                        </Button>
                     </form>
                 </FormProvider>
             </div>
         </Card>
-)
-;
+    )
+        ;
 };
 
 export default ClientProfileEditor;

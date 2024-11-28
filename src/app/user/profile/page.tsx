@@ -20,8 +20,6 @@ const ProfilePage = async () => {
 
     const dbUser = await getUserById(user.id);
 
-    console.log(user)
-
     return (
         <div className="flex h-screen justify-start">
             <div className="h-dvh">

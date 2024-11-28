@@ -1,8 +1,8 @@
 "use client"
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation'
+// import { useRouter, useSearchParams } from 'next/navigation'
 import { usePathname } from "next/navigation";
-import { AccountBox, Edit, Home } from "@mui/icons-material";
+import {AccountBox, Edit, Home, ListAlt, MilitaryTech} from "@mui/icons-material";
 
 
 const sidebarMenu = [
@@ -20,6 +20,11 @@ const sidebarMenu = [
         title: 'Edit profile',
         link: "/user/profile/edit",
         icon: Edit,
+    },
+    {
+        title: 'Your publication',
+        link: "/user/profile/publication",
+        icon: ListAlt,
     },
 ];
 
@@ -39,7 +44,7 @@ const Sidebar = () => {
                                 className={`flex items-center pl-3 pr-3 pt-4 pb-4 ${isActive ? 'text-white bg-slate-700 hover:bg-slate-800' : 'bd-white hover:bg-slate-300'}`}
                                 key={item.title}
                             >
-                                <item.icon className="w-6 h-6"/>
+                                <item.icon className="w-6 h-6 mr-2"/>
                                 <Link className="w-full text-base font-semibold" href={item.link}>{item.title}</Link>
                             </div>
                         );

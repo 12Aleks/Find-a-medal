@@ -22,7 +22,7 @@ const UserProfilePanel = ({user}: Props) => {
                         }}
                         className="transition-transform"
                         description="Welcome to your page"
-                        name={`${user.firstName} ${user.lastName}`}
+                        name={ user.nickName || `${user.firstName} ${user.lastName}`}
                     />
                 </DropdownTrigger>
                 <DropdownMenu aria-label="User Actions" variant="flat">
