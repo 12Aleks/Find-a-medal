@@ -9,7 +9,7 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   nickName  String?
   firstName String
   lastName  String
@@ -21,6 +21,86 @@ model User {
   facebook  String?
   x         String?
   youtube   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  Awarded   Awarded[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Awarded {
+  id            String     @id @default(uuid())
+  serviceNumber String
+  firstName     String
+  lastName      String
+  medals        Medal[] // Many-to-many relationship
+  regiments     Regiment[] // Many-to-many relationship
+  userId        String
+  user          User       @relation(fields: [userId], references: [id])
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([userId]) // Define index explicitly
+}
+
+model Regiment {
+  id            String          @id @default(uuid())
+  title         String
+  description   String
+  badgeUrl      String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  awarded       Awarded[]
+  vcRecipients  VcRecipient[]
+  battleHonours BattleHonours[]
+}
+
+model Medal {
+  id          String    @id @default(uuid())
+  title       String
+  established String
+  clasps      Clasp[]
+  awarded     Awarded[]
+}
+
+model Clasp {
+  id          String @id @default(uuid())
+  title       String
+  description String
+  medalId     String
+  medals      Medal  @relation(fields: [medalId], references: [id])
+
+  @@index([medalId]) // Define index explicitly
+}
+
+model Files {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  folderId  String   @map("folder_id")
+  teamId    String   @map("team_id")
+
+  @@index([folderId]) // Define index explicitly
+  @@index([teamId]) // Define index explicitly
+}
+
+model VcRecipient {
+  id           String    @id @default(uuid())
+  firstName    String
+  lastName     String
+  campaign     String
+  dateOfAction DateTime
+  Regiment     Regiment? @relation(fields: [regimentId], references: [id])
+  regimentId   String?
+
+  @@index([regimentId]) // Define index explicitly
+}
+
+model BattleHonours {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  dateStart   DateTime
+  dateEnd     DateTime
+  regimentId  String
+  regiments   Regiment @relation(fields: [regimentId], references: [id])
+
+  @@index([regimentId]) // Define index explicitly
 }
