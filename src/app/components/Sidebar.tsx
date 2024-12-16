@@ -23,7 +23,7 @@ const sidebarMenu = [
     },
     {
         title: 'Your publication',
-        link: "/user/profile/publication",
+        link: "/user/publication",
         icon: ListAlt,
     },
 ];

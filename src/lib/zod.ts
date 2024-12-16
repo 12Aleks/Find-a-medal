@@ -13,4 +13,16 @@ export const AddUserFormSchema = z.object({
     phone: z.string(),
     x: z.string(),
     youtube: z.string(),
+});
+
+export const AddAwarded = z.object({
+    firstName: z.string().min(3, 'Min length 3 symbols'),
+    lastName: z.string().min(3, 'Min length 3 symbols'),
+    serviceNumber: z.string().min(2, 'Min length 2 symbols'),
+    regiments: z.object({
+        title: z.string().min(3, 'Min length 3 symbols'),
+    }),
+    medals: z.object({
+        title: z.string().min(3, 'Min length 3 symbols'),
+    })
 })

@@ -28,11 +28,9 @@ const ClientProfileEditor = ({dbUser}: { dbUser: any }) => {
     });
 
     const onSubmit: SubmitHandler<AddUserInputType> = async (data) => {
-        console.log("Form submitted:", data);
         await editUser(dbUser.id, data);
     };
 
-    console.log(dbUser)
 
     return (
         <Card className="p-3 m-3">
