@@ -1,4 +1,5 @@
 import {z} from "zod";
+import {TableColumn} from "@nextui-org/table";
 //import validator from "validator";
 
 export const AddUserFormSchema = z.object({
@@ -26,3 +27,14 @@ export const AddAwarded = z.object({
         title: z.string().min(3, 'Min length 3 symbols'),
     })
 })
+
+export const AddMedal = z.object({
+    title: z.string().min(3, 'Min length 3 symbols'),
+    established: z.string().min(3, 'Min length 3 symbols'),
+    clasps: z.array(
+        z.object({
+            title: z.string().min(3, 'Min length 3 symbols'),
+            description: z.string().optional(),
+        })
+    )
+});

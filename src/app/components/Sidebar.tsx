@@ -1,8 +1,7 @@
 "use client"
 import Link from 'next/link';
-// import { useRouter, useSearchParams } from 'next/navigation'
-import { usePathname } from "next/navigation";
-import {AccountBox, Edit, Home, ListAlt, MilitaryTech} from "@mui/icons-material";
+import {usePathname} from "next/navigation";
+import {AccountBox, Edit, Home, LibraryBooks, ListAlt, MilitaryTech} from "@mui/icons-material";
 
 
 const sidebarMenu = [
@@ -25,6 +24,14 @@ const sidebarMenu = [
         title: 'Your publication',
         link: "/user/publication",
         icon: ListAlt,
+    },{
+        title: 'Regiments list',
+        link: "/list/regiments",
+        icon: LibraryBooks,
+    },{
+        title: 'Medals list',
+        link: "/list/medals",
+        icon: MilitaryTech,
     },
 ];
 
@@ -32,7 +39,8 @@ const Sidebar = () => {
     const pathname = usePathname();
 
     return (
-        <section className="bg-white dark:bg-zinc-900 w-64 h-full overflow-auto pt-4 pb-4 border-r-1 border-r-stone-700">
+        <section
+            className="bg-white dark:bg-zinc-900 w-64 h-full overflow-auto pt-4 pb-4 border-r-1 border-r-stone-700">
             <div className="grid text-slate-700 hover:text-slate-800 cursor-pointer">
                 {
                     sidebarMenu.map((item) => {

@@ -2,9 +2,11 @@
 import {
     Table,
     TableHeader,
+    TableBody,
     TableColumn,
-    TableBody, TableRow, TableCell,
-} from "@nextui-org/react";
+    TableRow,
+    TableCell
+} from "@nextui-org/table";
 
 
 const TablePublication = () => {
@@ -21,10 +23,6 @@ const TablePublication = () => {
             isStriped
             aria-label="Example table with client-side sorting"
             className="w-full pl-3 pr-3 text-slate-600"
-            // classNames={{
-            //     base: "max-h-[520px] overflow-scroll",
-            //     table: "min-h-[420px]",
-            // }}
         >
             <TableHeader>
                 <TableColumn>Index</TableColumn>
