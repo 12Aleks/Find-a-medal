@@ -57,29 +57,25 @@ const CreateMedal = () => {
                                     placeholder="Enter the date the medal was established"
                                 />
 
-                                {/* Clasp Fields */}
-                                <div>
-                                    <h4>Clasps</h4>
+                                <div className="mt-3">
+                                    <h4 className="text-slate-700 ">Clasps:</h4>
                                     {claspFields.map((item, index) => (
                                         <div key={item.id} className="flex gap-2 items-center">
                                             <Input
                                                 {...methods.register(`clasps.${index}.title`)}
                                                 placeholder={`Clasp ${index + 1}`}
+                                                className="mb-2"
                                             />
-                                            <Button
-                                                color="danger"
-                                                onClick={() => removeClasp(index)}
-                                            >
-                                                Remove
-                                            </Button>
+                                            <button type="button" onClick={() => removeClasp(index)}
+                                                    className="ml-auto mb-2 block bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-lg items-center">
+                                                <span className="text-sm">Remove</span>
+                                            </button>
                                         </div>
                                     ))}
-                                    <Button
-                                        color="primary"
-                                        onClick={() => appendClasp({title: ""})}
-                                    >
-                                        Add Clasp
-                                    </Button>
+                                    <button type="button" onClick={() => appendClasp({title: ""})}
+                                            className="mt-4 block bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 rounded-lg items-center">
+                                        <span className="text-sm">Add Clasp</span>
+                                    </button>
                                 </div>
 
                             </form>

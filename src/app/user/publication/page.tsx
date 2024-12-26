@@ -1,5 +1,9 @@
-import PublicationClient from "@/app/user/publication/_components/PublicationClient";
 import { prisma } from "@/lib/prisma";
+import Sidebar from "@/app/components/Sidebar";
+import PageTitle from "@/app/components/pageTitle";
+import {Card} from "@nextui-org/card";
+import TablePublication from "@/app/user/publication/_components/TablePublication";
+import CreatePublication from "@/app/user/publication/_components/CreatePublication";
 
 const PublicationPage = async () => {
     const [medals, regiments] = await Promise.all([
@@ -8,7 +12,22 @@ const PublicationPage = async () => {
     ]);
 
     return (
-        <PublicationClient medals={medals} regiments={regiments} />
+        <div className="flex h-screen justify-start">
+            <div className="h-dvh">
+                <Sidebar/>
+            </div>
+            <div className="w-full">
+                <PageTitle title="Your publication" linkCaption="Back to Home Page" href="/"/>
+                <Card className="p-3 m-3">
+                    <TablePublication/>
+                    <CreatePublication
+                        medals={medals}
+                        regiments={regiments}
+                    />
+                </Card>
+
+            </div>
+        </div>
     );
 };
 

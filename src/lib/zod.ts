@@ -38,3 +38,25 @@ export const AddMedal = z.object({
         })
     )
 });
+
+export const AddRegiment = z.object({
+    title: z.string().min(3, 'Min length 3 symbols'),
+    description: z.string().min(10, 'Min length 3 symbols'),
+    badgeUrl: z.string(),
+    vcRecipients: z.array(
+        z.object({
+            firstName: z.string(),
+            lastName:  z.string(),
+            campaign: z.string(),
+            dateOfAction: z.string().transform((str) => new Date(str)),
+        })
+    ),
+    battleHonours: z.array(
+        z.object({
+            title: z.string(),
+            description: z.string(),
+            dateStart: z.string().transform((str) => new Date(str)),
+            dateEnd : z.string().transform((str) => new Date(str)),
+        })
+    ),
+})
