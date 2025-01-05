@@ -22,8 +22,8 @@ const CreatePublication: React.FC<IProps> = ({ medals, regiments}) => {
             firstName: "",
             lastName: "",
             serviceNumber: "",
-            medals: {title: ""},
-            regiments: {title: ""},
+            medals: [], // Initialize as empty arrays
+            regiments: [],
         },
     });
 
@@ -63,20 +63,34 @@ const CreatePublication: React.FC<IProps> = ({ medals, regiments}) => {
                                     type="text"
                                     placeholder="Enter last name"
                                 />
-                                <Select {...methods.register("medals", {setValueAs: (v: any) => v.toString()})}>
+                                <Select
+                                    onChange={(event) => {
+                                        const selectedMedals = methods.getValues("medals") || [];
+                                        const value = (event.target as HTMLSelectElement).value; // Safely access the value
+                                        methods.setValue("medals", [...selectedMedals, value]);
+                                    }}
+                                >
                                     {medals.map((medal) => (
                                         <SelectItem key={medal.id} value={medal.id}>
                                             {medal.title}
                                         </SelectItem>
                                     ))}
                                 </Select>
-                                <Select {...methods.register("regiments", {setValueAs: (v: any) => v.toString()})}>
+
+                                <Select
+                                    onChange={(event) => {
+                                        const selectedRegiments = methods.getValues("regiments") || [];
+                                        const value = (event.target as HTMLSelectElement).value; // Safely access the value
+                                        methods.setValue("regiments", [...selectedRegiments, value]);
+                                    }}
+                                >
                                     {regiments.map((regiment) => (
                                         <SelectItem key={regiment.id} value={regiment.id}>
                                             {regiment.title}
                                         </SelectItem>
                                     ))}
                                 </Select>
+
                             </form>
                         </FormProvider>
                     </ModalBody>

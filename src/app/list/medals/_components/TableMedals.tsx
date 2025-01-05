@@ -7,22 +7,19 @@ import {
     TableRow,
     TableCell
 } from "@nextui-org/table";
+import {Prisma} from "@prisma/client";
 
-const TableMedals = () => {
-    const testArray = [
-        {
-            index: 1,
-            title: "2",
-            established: "3",
-            clasps: "4",
-        },
-        {
-            index: 2,
-            title: "12",
-            established: "3",
-            clasps: "4",
-        },
-    ];
+type Props = {
+    medals: Prisma.MedalGetPayload<{
+        include: {
+            clasps: true;
+        };
+    }>[];
+}
+
+const TableMedals = ({medals} : Props) => {
+
+    console.log(medals);
     return (
         <Table
             isHeaderSticky
@@ -38,12 +35,14 @@ const TableMedals = () => {
             </TableHeader>
             <TableBody>
 
-                {testArray.map((row, idx) => (
-                    <TableRow key={idx}>
-                        <TableCell>{row.index}</TableCell>
-                        <TableCell>{row.title}</TableCell>
-                        <TableCell>{row.established}</TableCell>
-                        <TableCell>{row.clasps}</TableCell>
+                {medals?.map((medal, index) => (
+                    <TableRow key={medal.title}>
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{medal.title}</TableCell>
+                        <TableCell>{medal.established}</TableCell>
+                        <TableCell>
+                            {medal.clasps.map((clasp, claspIndex) => clasp.title).join(", ")}
+                        </TableCell>
                     </TableRow>
                 ))}
 

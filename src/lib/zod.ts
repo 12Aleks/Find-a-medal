@@ -20,12 +20,8 @@ export const AddAwarded = z.object({
     firstName: z.string().min(3, 'Min length 3 symbols'),
     lastName: z.string().min(3, 'Min length 3 symbols'),
     serviceNumber: z.string().min(2, 'Min length 2 symbols'),
-    regiments: z.object({
-        title: z.string().min(3, 'Min length 3 symbols'),
-    }),
-    medals: z.object({
-        title: z.string().min(3, 'Min length 3 symbols'),
-    })
+    regiments: z.array(z.string()),
+    medals: z.array(z.string()),
 })
 
 export const AddMedal = z.object({
@@ -33,10 +29,10 @@ export const AddMedal = z.object({
     established: z.string().min(3, 'Min length 3 symbols'),
     clasps: z.array(
         z.object({
-            title: z.string().min(3, 'Min length 3 symbols'),
-            description: z.string().optional(),
+            title: z.string().min(1, "Clasp title is required"),
+            description: z.string().min(1, "Clasp description is required"),
         })
-    )
+    ),
 });
 
 export const AddRegiment = z.object({
