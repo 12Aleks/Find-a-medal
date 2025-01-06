@@ -10,7 +10,6 @@ export const addMedal = async (createMedalData: AddMedalInputType) => {
     };
 
     try {
-        // Create a new medal entry with associated clasps
         const medals = await prisma.medal.create({
             data: {
                 ...basic,

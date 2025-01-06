@@ -1,5 +1,5 @@
 "use client"
-import { Button, Input, Modal, useDisclosure } from "@nextui-org/react";
+import { Button, Input, Modal, useDisclosure, Textarea } from "@nextui-org/react";
 import { ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
 import { FormProvider, SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -45,10 +45,10 @@ const CreateMedal = () => {
                 <span className="text-sm">Add medal</span>
             </button>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <Modal isOpen={isOpen} onClose={onClose} size="2xl">
                 <ModalContent>
                     <ModalHeader className="flex flex-col gap-1 text-slate-600">
-                        Add new information
+                        Add new medal
                     </ModalHeader>
                     <ModalBody>
                         <FormProvider {...methods}>
@@ -57,11 +57,15 @@ const CreateMedal = () => {
                                 onSubmit={methods.handleSubmit(onSubmit)} // Ensure this is correctly wired
                             >
                                 <Input
+                                    size="lg"
+                                    radius="sm"
                                     {...methods.register("title")}
                                     type="text"
                                     placeholder="Enter medal name"
                                 />
                                 <Input
+                                    size="lg"
+                                    radius="sm"
                                     {...methods.register("established")}
                                     type="text"
                                     placeholder="Enter the date the medal was established"
@@ -72,19 +76,24 @@ const CreateMedal = () => {
                                     {claspFields.map((item, index) => (
                                         <div key={item.id} className="flex flex-col gap-2 items-start">
                                             <Input
+                                                size="lg"
+                                                radius="sm"
                                                 {...methods.register(`clasps.${index}.title`)}
                                                 placeholder={`Clasp ${index + 1} Title`}
                                                 className="mb-2"
                                             />
-                                            <Input
+                                            <Textarea
+                                                size="lg"
+                                                radius="sm"
+                                                minRows={2}
                                                 {...methods.register(`clasps.${index}.description`)}
                                                 placeholder={`Clasp ${index + 1} Description`}
-                                                className="mb-2"
+                                                className="mb-1 "
                                             />
                                             <button
                                                 type="button"
                                                 onClick={() => removeClasp(index)}
-                                                className="ml-auto block bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-lg"
+                                                className="ml-auto mb-3 block bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-lg"
                                             >
                                                 Remove
                                             </button>

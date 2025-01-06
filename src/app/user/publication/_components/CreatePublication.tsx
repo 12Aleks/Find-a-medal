@@ -38,7 +38,7 @@ const CreatePublication: React.FC<IProps> = ({ medals, regiments}) => {
                 <span className="text-sm">Add new data</span>
             </button>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <Modal isOpen={isOpen} onClose={onClose} size="2xl">
                 <ModalContent>
                     <ModalHeader className="flex flex-col gap-1 text-slate-600">
                         Add new information
@@ -48,22 +48,35 @@ const CreatePublication: React.FC<IProps> = ({ medals, regiments}) => {
                             <form className="grid grid-cols-2 gap-3"
                                   onSubmit={methods.handleSubmit(onSubmit, (errors) => console.log(errors))}>
                                 <Input
+                                    size="lg"
+                                    radius="sm"
                                     {...methods.register("serviceNumber")}
                                     type="text"
                                     placeholder="Enter service number"
-                                    className="col-span-2"
+                                    className="col-span-2 rounded-lg"
                                 />
                                 <Input
+                                    size="lg"
+                                    radius="sm"
                                     {...methods.register("firstName")}
                                     type="text"
                                     placeholder="Enter first name"
+                                    className="mt-3"
                                 />
                                 <Input
+                                    size="lg"
                                     {...methods.register("lastName")}
                                     type="text"
                                     placeholder="Enter last name"
+                                    radius="sm"
+                                    className="mt-3"
                                 />
                                 <Select
+                                    size="sm"
+                                    radius="sm"
+                                    label="Select medal"
+                                    className="text-gray-900 mt-3"
+
                                     onChange={(event) => {
                                         const selectedMedals = methods.getValues("medals") || [];
                                         const value = (event.target as HTMLSelectElement).value; // Safely access the value
@@ -71,21 +84,25 @@ const CreatePublication: React.FC<IProps> = ({ medals, regiments}) => {
                                     }}
                                 >
                                     {medals.map((medal) => (
-                                        <SelectItem key={medal.id} value={medal.id}>
+                                        <SelectItem key={medal.id} value={medal.id}  className="text-gray-900">
                                             {medal.title}
                                         </SelectItem>
                                     ))}
                                 </Select>
 
                                 <Select
+                                    size="sm"
+                                    radius="sm"
+                                    label="Select regiment"
+                                    className="text-gray-900 mt-3"
                                     onChange={(event) => {
                                         const selectedRegiments = methods.getValues("regiments") || [];
-                                        const value = (event.target as HTMLSelectElement).value; // Safely access the value
+                                        const value = (event.target as HTMLSelectElement).value;
                                         methods.setValue("regiments", [...selectedRegiments, value]);
                                     }}
                                 >
                                     {regiments.map((regiment) => (
-                                        <SelectItem key={regiment.id} value={regiment.id}>
+                                        <SelectItem key={regiment.id} value={regiment.id} className="text-gray-900">
                                             {regiment.title}
                                         </SelectItem>
                                     ))}
@@ -94,7 +111,7 @@ const CreatePublication: React.FC<IProps> = ({ medals, regiments}) => {
                             </form>
                         </FormProvider>
                     </ModalBody>
-                    <ModalFooter>
+                    <ModalFooter className="mt-5">
                         <Button color="danger" variant="light" onPress={onClose}>
                             Close
                         </Button>
