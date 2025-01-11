@@ -48,26 +48,26 @@ const CreatePublication: React.FC<IProps> = ({ medals, regiments}) => {
                             <form className="grid grid-cols-2 gap-3"
                                   onSubmit={methods.handleSubmit(onSubmit, (errors) => console.log(errors))}>
                                 <Input
-                                    size="lg"
+                                    size="sm"
                                     radius="sm"
                                     {...methods.register("serviceNumber")}
                                     type="text"
-                                    placeholder="Enter service number"
+                                    label="Enter service number"
                                     className="col-span-2 rounded-lg"
                                 />
                                 <Input
-                                    size="lg"
+                                    size="sm"
                                     radius="sm"
                                     {...methods.register("firstName")}
                                     type="text"
-                                    placeholder="Enter first name"
+                                    label="Enter first name"
                                     className="mt-3"
                                 />
                                 <Input
-                                    size="lg"
+                                    size="sm"
                                     {...methods.register("lastName")}
                                     type="text"
-                                    placeholder="Enter last name"
+                                    label="Enter last name"
                                     radius="sm"
                                     className="mt-3"
                                 />

@@ -19,8 +19,8 @@ export const AddUserFormSchema = z.object({
 export const AddAwarded = z.object({
     firstName: z.string().min(3, 'Min length 3 symbols'),
     lastName: z.string().min(3, 'Min length 3 symbols'),
-    serviceNumber: z.string().min(2, 'Min length 2 symbols'),
-    regiments: z.array(z.string()),
+    serviceNumber: z.string().min(2, 'Min length 2 symbols').optional().or(z.literal('')),
+    regiments: z.array(z.string()).optional().or(z.literal('')),
     medals: z.array(z.string()),
 })
 
@@ -29,16 +29,16 @@ export const AddMedal = z.object({
     established: z.string().min(3, 'Min length 3 symbols'),
     clasps: z.array(
         z.object({
-            title: z.string().min(1, "Clasp title is required"),
-            description: z.string().min(1, "Clasp description is required"),
-        })
-    ),
+            title: z.string().min(1, "Clasp title is required").optional().or(z.literal('')),
+            description: z.string().min(1, "Clasp description is required").optional().or(z.literal('')),
+        }),
+    ).optional(),
 });
 
 export const AddRegiment = z.object({
     title: z.string().min(3, 'Min length 3 symbols'),
-    description: z.string().min(10, 'Min length 3 symbols'),
-    badgeUrl: z.string(),
+    description: z.string().min(10, 'Min length 3 symbols').optional().or(z.literal('')),
+    badgeUrl: z.string().optional().or(z.literal('')),
     vcRecipients: z.array(
         z.object({
             firstName: z.string(),
@@ -50,7 +50,7 @@ export const AddRegiment = z.object({
     battleHonours: z.array(
         z.object({
             title: z.string(),
-            description: z.string(),
+            description: z.string().optional().or(z.literal('')),
             dateStart: z.string().transform((str) => new Date(str)),
             dateEnd : z.string().transform((str) => new Date(str)),
         })

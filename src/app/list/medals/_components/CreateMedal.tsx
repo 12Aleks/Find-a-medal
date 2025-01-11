@@ -6,17 +6,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AddMedal } from "@/lib/zod";
 import { z } from "zod";
 import { addMedal } from "@/lib/action/medal";
+import {useRouter} from "next/navigation";
 
 export type AddMedalInputType = z.infer<typeof AddMedal>;
 
 const CreateMedal = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const router = useRouter();
     const methods = useForm<AddMedalInputType>({
         resolver: zodResolver(AddMedal),
         defaultValues: {
             title: "",
             established: "",
-            clasps: [{ title: "", description: "" }],
+            clasps: [{
+                title: "",
+                description: ""
+            }] ,
         },
     });
 
@@ -26,10 +31,12 @@ const CreateMedal = () => {
     });
 
     const onSubmit: SubmitHandler<AddMedalInputType> = async (data) => {
-        console.log("Form data submitted:", data); // Ensure the data is being passed correctly
+        console.log("Form data submitted:", data);
         try {
-            await addMedal(data); // Call your action here
+            await addMedal(data);
             console.log("Medal added successfully");
+            router.refresh();
+            onClose();
         } catch (error) {
             console.error("Error adding medal:", error);
         }
@@ -54,21 +61,25 @@ const CreateMedal = () => {
                         <FormProvider {...methods}>
                             <form
                                 className="grid grid-cols-1 gap-3"
-                                onSubmit={methods.handleSubmit(onSubmit)} // Ensure this is correctly wired
+                                onSubmit={methods.handleSubmit(onSubmit)}
                             >
                                 <Input
-                                    size="lg"
+                                    size="sm"
                                     radius="sm"
                                     {...methods.register("title")}
                                     type="text"
-                                    placeholder="Enter medal name"
+                                    label="Enter medal name"
+                                    isInvalid={!!methods.formState.errors.title}
+                                    errorMessage={methods.formState.errors.title?.message}
                                 />
                                 <Input
-                                    size="lg"
+                                    size="sm"
                                     radius="sm"
                                     {...methods.register("established")}
                                     type="text"
-                                    placeholder="Enter the date the medal was established"
+                                    label="Enter the date the medal was established"
+                                    isInvalid={!!methods.formState.errors.established}
+                                    errorMessage={methods.formState.errors.established?.message}
                                 />
 
                                 <div className="mt-3">
@@ -76,18 +87,29 @@ const CreateMedal = () => {
                                     {claspFields.map((item, index) => (
                                         <div key={item.id} className="flex flex-col gap-2 items-start">
                                             <Input
-                                                size="lg"
+                                                size="sm"
                                                 radius="sm"
                                                 {...methods.register(`clasps.${index}.title`)}
-                                                placeholder={`Clasp ${index + 1} Title`}
+                                                label={`Clasp ${index + 1} Title`}
+                                                isInvalid={!!methods.formState.errors.clasps?.[index]?.title}
+                                                errorMessage={
+                                                    methods.formState.errors.clasps?.[index]?.title?.message
+                                                }
                                                 className="mb-2"
                                             />
                                             <Textarea
-                                                size="lg"
+                                                size="sm"
                                                 radius="sm"
                                                 minRows={2}
                                                 {...methods.register(`clasps.${index}.description`)}
-                                                placeholder={`Clasp ${index + 1} Description`}
+                                                label={`Clasp ${index + 1} Description`}
+                                                isInvalid={
+                                                    !!methods.formState.errors.clasps?.[index]?.description
+                                                }
+                                                errorMessage={
+                                                    methods.formState.errors.clasps?.[index]?.description
+                                                        ?.message
+                                                }
                                                 className="mb-1 "
                                             />
                                             <button
@@ -119,12 +141,14 @@ const CreateMedal = () => {
                                     </Button>
                                     <Button
                                         type="submit"
+                                        isDisabled={methods.formState.isSubmitting}
                                         className="bg-slate-700 hover:bg-slate-800 transition-background text-white"
                                     >
                                         Save Data
                                     </Button>
                                 </ModalFooter>
                             </form>
+
                         </FormProvider>
                     </ModalBody>
                 </ModalContent>
