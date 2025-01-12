@@ -219,7 +219,7 @@ const CreateRegiment = () => {
 
                                             <button
                                                 type="button"
-                                                onClick={() => removeBattle(index)}
+                                                onClick={() => removeRecipient(index)}
                                                 className="ml-auto mb-4 block bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-lg"
                                             >
                                                 Remove
@@ -229,16 +229,16 @@ const CreateRegiment = () => {
                                     <button
                                         type="button"
                                         onClick={() =>
-                                            appendBattle({
-                                                title: "",
-                                                description: "",
-                                                dateStart: new Date("2025-01-01T00:00:00.000Z"),
-                                                dateEnd: new Date("2025-01-01T00:00:00.000Z"),
+                                            appendRecipient({
+                                                firstName: "",
+                                                lastName: "",
+                                                campaign: "",
+                                                dateOfAction: new Date("2025-01-01T00:00:00.000Z"),
                                             })
                                         }
                                         className="mt-4 block bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 rounded-lg items-center"
                                     >
-                                        <span className="text-sm mb-4">Add Battle</span>
+                                        <span className="text-sm mb-4">Add Recipient</span>
                                     </button>
                                 </div>
 

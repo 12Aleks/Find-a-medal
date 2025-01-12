@@ -5,9 +5,12 @@ import {
     TableBody,
     TableColumn,
     TableRow,
-    TableCell
-} from "@nextui-org/table";
+    TableCell,
+    Tooltip,
+} from "@nextui-org/react";
 import {Prisma} from "@prisma/client";
+import {PencilIcon, TrashIcon, EyeIcon} from "@heroicons/react/16/solid";
+import Link from "next/link";
 
 type Props = {
     medals: Prisma.MedalGetPayload<{
@@ -32,6 +35,7 @@ const TableMedals = ({medals} : Props) => {
                 <TableColumn>Title</TableColumn>
                 <TableColumn>Established</TableColumn>
                 <TableColumn>Clasps</TableColumn>
+                <TableColumn>Action</TableColumn>
             </TableHeader>
             <TableBody>
 
@@ -42,6 +46,21 @@ const TableMedals = ({medals} : Props) => {
                         <TableCell>{medal.established}</TableCell>
                         <TableCell>
                             {medal.clasps.map((clasp, claspIndex) => clasp.title).join(", ")}
+                        </TableCell>
+                        <TableCell className="flex gap-3">
+                            <Tooltip content="Detals">
+                                <Link href={`/list/medals/${medal.id}`}><EyeIcon className="w-5 text-state-500"></EyeIcon></Link>
+                            </Tooltip>
+                            <Tooltip content="Edit medal" color="warning">
+                                <Link href={`/list/medals/${medal.id}/edit`}>
+                                    <PencilIcon className="w-5 text-yellow-500"></PencilIcon>
+                                </Link>
+                            </Tooltip>
+                            <Tooltip content="Delete medal" color="danger">
+                                <Link href={`/list/medals/${medal.id}/delete`}>
+                                    <TrashIcon className="w-5 text-red-500"></TrashIcon>
+                                </Link>
+                            </Tooltip>
                         </TableCell>
                     </TableRow>
                 ))}

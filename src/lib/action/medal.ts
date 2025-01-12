@@ -8,16 +8,19 @@ export const addMedal = async (createMedalData: AddMedalInputType) => {
         title: createMedalData.title,
         established: createMedalData.established,
     };
+    const clasps = createMedalData.clasps
+        ?.filter((clasp) => clasp.title)
+        .map((clasp) => ({
+            title: clasp.title!,
+            description: clasp.description || "",
+        }));
 
     try {
         const medals = await prisma.medal.create({
             data: {
                 ...basic,
                 clasps: {
-                    create: createMedalData.clasps.map((clasp) => ({
-                        title: clasp.title,
-                        description: clasp.description,
-                    })),
+                    create: clasps,
                 },
             },
             include: {
@@ -32,3 +35,13 @@ export const addMedal = async (createMedalData: AddMedalInputType) => {
         throw new Error("Failed to create medal entry");
     }
 };
+
+export const deleteMedal = async (medalId: string) => {
+    const result = await prisma.medal.delete({
+        where: {
+            id: medalId
+        }
+    })
+
+    return JSON.parse(JSON.stringify(result));
+}
