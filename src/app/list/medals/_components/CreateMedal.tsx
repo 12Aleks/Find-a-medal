@@ -7,23 +7,37 @@ import { AddMedal } from "@/lib/zod";
 import { z } from "zod";
 import { addMedal } from "@/lib/action/medal";
 import {useRouter} from "next/navigation";
+import {Prisma} from "@prisma/client";
+import {useEffect} from "react";
 
 export type AddMedalInputType = z.infer<typeof AddMedal>;
 
-const CreateMedal = () => {
+type Props = {
+    medal?: Prisma.MedalGetPayload<{
+        include: {
+            clasps: true;
+        };
+    }>;
+}
+
+const CreateMedal = ({...props}: Props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
     const methods = useForm<AddMedalInputType>({
         resolver: zodResolver(AddMedal),
         defaultValues: {
-            title: "",
-            established: "",
-            clasps: [{
-                title: "",
-                description: ""
-            }] ,
+            title: props.medal?.title ?? "",
+            established: props.medal?.established ?? "",
+            clasps: props.medal?.clasps?.map(clasp => ({
+                title: clasp.title ?? "",
+                description: clasp.description ?? "",
+            })) ?? [],
         },
     });
+
+    useEffect(() => {
+        if(props.medal?.title) onOpen();
+    }, [props.medal?.title])
 
     const { fields: claspFields, append: appendClasp, remove: removeClasp } = useFieldArray({
         control: methods.control,
@@ -81,9 +95,8 @@ const CreateMedal = () => {
                                     isInvalid={!!methods.formState.errors.established}
                                     errorMessage={methods.formState.errors.established?.message}
                                 />
-
-                                <div className="mt-3">
-                                    <h4 className="text-slate-700">Clasps:</h4>
+                                <h4 className="text-slate-700 mt-3">Clasps:</h4>
+                                <div className="mt-2 max-h-96 overflow-y-auto pl-3 pr-3" >
                                     {claspFields.map((item, index) => (
                                         <div key={item.id} className="flex flex-col gap-2 items-start">
                                             <Input
@@ -121,19 +134,20 @@ const CreateMedal = () => {
                                             </button>
                                         </div>
                                     ))}
-                                    <button
-                                        type="button"
-                                        onClick={() =>
-                                            appendClasp({
-                                                title: "",
-                                                description: "",
-                                            })
-                                        }
-                                        className="mt-4 block bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 rounded-lg items-center"
-                                    >
-                                        <span className="text-sm">Add Clasp</span>
-                                    </button>
+
                                 </div>
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        appendClasp({
+                                            title: "",
+                                            description: "",
+                                        })
+                                    }
+                                    className="mt-4 block bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 rounded-lg items-center"
+                                >
+                                    <span className="text-sm">Add Clasp</span>
+                                </button>
 
                                 <ModalFooter>
                                     <Button color="danger" variant="light" onPress={onClose}>

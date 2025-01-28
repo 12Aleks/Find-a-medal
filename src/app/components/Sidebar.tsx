@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link';
 import {usePathname} from "next/navigation";
-import {AccountBox, Edit, Home, LibraryBooks, ListAlt, MilitaryTech} from "@mui/icons-material";
+import {AccountBox, Edit, Home, LibraryBooks, ListAlt, MilitaryTech, SwitchAccount} from "@mui/icons-material";
 
 
 const sidebarMenu = [
@@ -19,11 +19,14 @@ const sidebarMenu = [
         title: 'Edit profile',
         link: "/user/profile/edit",
         icon: Edit,
-    },
-    {
+    }, {
         title: 'Your publication',
         link: "/user/publication",
         icon: ListAlt,
+    },{
+        title: 'Users list',
+        link: "/list/users",
+        icon: SwitchAccount,
     },{
         title: 'Regiments list',
         link: "/list/regiments",

@@ -1,4 +1,3 @@
-import React from 'react';
 import {deleteMedal} from "@/lib/action/medal";
 import { notFound, redirect } from "next/navigation";
 import { Button } from "@nextui-org/react";
@@ -8,25 +7,26 @@ import prisma from "@/lib/prisma";
 import SubmitButton from "@/app/components/SubmitButton";
 
 interface Props {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 }
 
 const DeleteMedalPage = async ({ params }: Props) => {
+    const resolvedParams = await params;
     const { getUser } = getKindeServerSession();
-    const propertyPromise = prisma.medal.findUnique({
+    const medalPromise = prisma.medal.findUnique({
         where: {
-            id: params.id,
+            id: resolvedParams.id,
         },
     });
-    const [property, user] = await Promise.all([propertyPromise, getUser()]);
+    const [medals, user] = await Promise.all([medalPromise, getUser()]);
 
-    if (!property) return notFound();
-    if (!user) redirect("/unauthorized");
+    if (!medals) return notFound();
+    if (!user ) redirect("/unauthorized");
 
     const deleteAction = async () => {
         "use server";
         try {
-            await deleteMedal(params.id);
+            await deleteMedal(resolvedParams.id);
             redirect("/list/medals");
         } catch (error) {
             throw error;
@@ -40,7 +40,7 @@ const DeleteMedalPage = async ({ params }: Props) => {
                 <p className="text-slate-700 mb-3">Are you sure to delete this medal?</p>
                 <p>
                     <span className="text-slate-400">Title: </span>{" "}
-                    <span className="text-slate-700">{property.title}</span>
+                    <span className="text-slate-700">{medals.title}</span>
                 </p>
                 <div className="flex justify-center gap-3 mt-5">
                     <Link href={"/list/medals"}>

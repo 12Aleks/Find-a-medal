@@ -17,6 +17,7 @@ model User {
   phone     String?
   avatarUrl String?
   interests String?
+  role      String    @default("user")
   skype     String?
   facebook  String?
   x         String?
